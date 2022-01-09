@@ -27,4 +27,10 @@
     <Folder Include="Images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="msedgedriver.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

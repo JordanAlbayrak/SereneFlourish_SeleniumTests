@@ -1,5 +1,7 @@
 using OpenQA.Selenium;
+using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.IO;
@@ -9,7 +11,7 @@ namespace SereneFlourish_SeleniumTests
 {
     public class FormEndToEndTests
     {
-        IWebDriver driver = new FirefoxDriver("C:\\Program Files\\Mozilla Firefox");
+        EdgeDriver driver = new EdgeDriver();
         TimeSpan time = TimeSpan.FromSeconds(5);
         bool status = false;
         string projectRoot = Path.GetFullPath(@"..\..\..\");
@@ -26,6 +28,8 @@ namespace SereneFlourish_SeleniumTests
         [Fact]
         public void TestHomePageRequestServiceButton()
         {
+            driver.Manage().Window.Maximize();
+
             WebDriverWait wait = new WebDriverWait(driver, time);
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
             driver.Url = "http://localhost:3000/";
@@ -35,9 +39,12 @@ namespace SereneFlourish_SeleniumTests
 
 
         }
+
         [Fact]
         public void TestHomePageImageButtons()
         {
+            driver.Manage().Window.Maximize();
+
             WebDriverWait wait = new WebDriverWait(driver, time);
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
             driver.Url = "http://localhost:3000/";
@@ -59,9 +66,12 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
 
         }
+
         [Fact]
         public void TestCalligraphyFormPost_FieldsFilled()
         {
+            driver.Manage().Window.Maximize();
+
             WebDriverWait wait = new WebDriverWait(driver, time);
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
             driver.Url = "http://localhost:3000/";
@@ -89,14 +99,12 @@ namespace SereneFlourish_SeleniumTests
             search = driver.FindElement(By.Name("country"));
             search.SendKeys("CockCountry");
 
-            search = driver.FindElement(By.Name("service"));
-            search.Click();
-            search = driver.FindElement(By.Name("calligraphy-select"));
-            search.Click();
+            Click(driver, By.Name("service"));
+            Click(driver, By.Name("Calligraphy-select"));
 
             search = driver.FindElement(By.Name("comments"));
             search.SendKeys("Test Comment Calligraphy!");
-            
+
             search = driver.FindElement(By.Name("attachments"));
             search.SendKeys(projectRoot + @"Images\Calligraphy.jpg");
 
@@ -121,6 +129,8 @@ namespace SereneFlourish_SeleniumTests
         [Fact]
         public void TestCalligraphyFormPost_EmptyFields()
         {
+            driver.Manage().Window.Maximize();
+
             WebDriverWait wait = new WebDriverWait(driver, time);
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
             driver.Url = "http://localhost:3000/";
@@ -146,6 +156,8 @@ namespace SereneFlourish_SeleniumTests
         [Fact]
         public void TestCalligraphyFormPost_EngravingAndComment()
         {
+            driver.Manage().Window.Maximize();
+
             WebDriverWait wait = new WebDriverWait(driver, time);
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
             driver.Url = "http://localhost:3000/";
@@ -173,10 +185,8 @@ namespace SereneFlourish_SeleniumTests
             search = driver.FindElement(By.Name("country"));
             search.SendKeys("CockCountry");
 
-            search = driver.FindElement(By.Name("service"));
-            search.Click();
-            search = driver.FindElement(By.Name("engraving-select"));
-            search.Click();
+            Click(driver, By.Name("service"));
+            Click(driver, By.Name("Engraving-select"));
 
             search = driver.FindElement(By.Name("comments"));
             search.SendKeys("Test Comment Engraving!");
@@ -203,67 +213,10 @@ namespace SereneFlourish_SeleniumTests
         }
 
         [Fact]
-        public void TestCalligraphyFormPost_EventAndComment()
-        {
-            WebDriverWait wait = new WebDriverWait(driver, time);
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            driver.Url = "http://localhost:3000/";
-            IWebElement search = driver.FindElement(By.Name("nbForm"));
-            search.Click();
-
-            search = driver.FindElement(By.Name("firstName"));
-            search.SendKeys("John");
-
-            search = driver.FindElement(By.Name("lastName"));
-            search.SendKeys("Doe");
-
-            search = driver.FindElement(By.Name("email"));
-            search.SendKeys("tristan.jeremy.jordan@gmail.com");
-
-            search = driver.FindElement(By.Name("street"));
-            search.SendKeys("SexyStreet");
-
-            search = driver.FindElement(By.Name("postal"));
-            search.SendKeys("J4Y1P1");
-
-            search = driver.FindElement(By.Name("city"));
-            search.SendKeys("CoolCity");
-
-            search = driver.FindElement(By.Name("country"));
-            search.SendKeys("CockCountry");
-
-            search = driver.FindElement(By.Name("service"));
-            search.Click();
-            search = driver.FindElement(By.Name("event-select"));
-            search.Click();
-
-            search = driver.FindElement(By.Name("comments"));
-            search.SendKeys("Test Comment Event!");
-
-            search = driver.FindElement(By.Name("attachments"));
-            search.SendKeys(projectRoot + @"Images\Calligraphy.jpg");
-
-            search = driver.FindElement(By.Name("submit-btn"));
-            search.Click();
-
-            driver.SwitchTo().Alert().Accept();
-
-            string emailRequestSentAlertText = driver.SwitchTo().Alert().Text;
-            driver.SwitchTo().Alert().Accept();
-
-            if (emailRequestSentAlertText.Equals("Thank you for your request, an email has been sent your way!"))
-            {
-                status = true;
-            }
-            Assert.True(status);
-
-            driver.Quit();
-
-        }
-
-        [Fact]
         public void TestCalligraphyFormPost_CalligraphyNoComment()
         {
+            driver.Manage().Window.Maximize();
+
             WebDriverWait wait = new WebDriverWait(driver, time);
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
             driver.Url = "http://localhost:3000/";
@@ -291,11 +244,9 @@ namespace SereneFlourish_SeleniumTests
             search = driver.FindElement(By.Name("country"));
             search.SendKeys("CockCountry");
 
-            search = driver.FindElement(By.Name("service"));
-            search.Click();
-            search = driver.FindElement(By.Name("calligraphy-select"));
-            search.Click();
-            
+            Click(driver, By.Name("service"));
+            Click(driver, By.Name("Calligraphy-select"));
+
             search = driver.FindElement(By.Name("attachments"));
             search.SendKeys(projectRoot + @"Images\Calligraphy.jpg");
 
@@ -314,9 +265,12 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
 
         }
+
         [Fact]
         public void TestCalligraphyFormPost_EngravingNoComment()
         {
+            driver.Manage().Window.Maximize();
+
             WebDriverWait wait = new WebDriverWait(driver, time);
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
             driver.Url = "http://localhost:3000/";
@@ -344,66 +298,8 @@ namespace SereneFlourish_SeleniumTests
             search = driver.FindElement(By.Name("country"));
             search.SendKeys("CockCountry");
 
-            search = driver.FindElement(By.Name("service"));
-            search.Click();
-            search = driver.FindElement(By.Name("engraving-select"));
-            search.Click();
-
-            search = driver.FindElement(By.Name("attachments"));
-            search.SendKeys(projectRoot + @"Images\Calligraphy.jpg");
-
-            search = driver.FindElement(By.Name("submit-btn"));
-            search.Click();
-
-            string emailRequestSentAlertText = driver.SwitchTo().Alert().Text;
-            driver.SwitchTo().Alert().Accept();
-
-            if (emailRequestSentAlertText.Equals("Failed, All Info is required"))
-            {
-                status = true;
-            }
-            Assert.True(status);
-
-            driver.Quit();
-
-        }
-        [Fact]
-        public void TestCalligraphyFormPost_EventNoComment()
-        {
-            WebDriverWait wait = new WebDriverWait(driver, time);
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            driver.Url = "http://localhost:3000/";
-            IWebElement search = driver.FindElement(By.Name("nbForm"));
-            search.Click();
-
-            search = driver.FindElement(By.Name("firstName"));
-            search.SendKeys("John");
-
-            search = driver.FindElement(By.Name("lastName"));
-            search.SendKeys("Doe");
-
-            search = driver.FindElement(By.Name("email"));
-            search.SendKeys("tristan.jeremy.jordan@gmail.com");
-
-            search = driver.FindElement(By.Name("street"));
-            search.SendKeys("SexyStreet");
-
-            search = driver.FindElement(By.Name("postal"));
-            search.SendKeys("J4Y1P1");
-
-            search = driver.FindElement(By.Name("city"));
-            search.SendKeys("CoolCity");
-
-            search = driver.FindElement(By.Name("country"));
-            search.SendKeys("CockCountry");
-
-            search = driver.FindElement(By.Name("service"));
-            search.Click();
-            search = driver.FindElement(By.Name("calligraphy-select"));
-            search.Click();
-
-            search = driver.FindElement(By.Name("comments"));
-            search.SendKeys("");
+            Click(driver, By.Name("service"));
+            Click(driver, By.Name("Engraving-select"));
 
             search = driver.FindElement(By.Name("attachments"));
             search.SendKeys(projectRoot + @"Images\Calligraphy.jpg");
@@ -432,17 +328,17 @@ namespace SereneFlourish_SeleniumTests
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
 
             driver.Url = "http://localhost:3000/form";
-            IWebElement fNameFeild = driver.FindElement(By.Name("firstName"));
-            IWebElement lNameFeild = driver.FindElement(By.Name("lastName"));
-            IWebElement emailField = driver.FindElement(By.Name("email"));
-            IWebElement streetField = driver.FindElement(By.Name("street"));
-            IWebElement postalFeild = driver.FindElement(By.Name("postal"));
-            IWebElement cityFeild = driver.FindElement(By.Name("city"));
-            IWebElement countryFeild = driver.FindElement(By.Name("country"));
-            IWebElement serviceFeild = driver.FindElement(By.Name("service"));
-            IWebElement commentsFeild = driver.FindElement(By.Name("comments"));
-            IWebElement attachmentsField = driver.FindElement(By.Name("attachments"));
-            IWebElement submitBtn = driver.FindElement(By.Name("submit-btn"));
+            IWebElement fNameFeild = wait.Until(driver => driver.FindElement(By.Name("firstName")));
+            IWebElement lNameFeild = wait.Until(driver => driver.FindElement(By.Name("lastName")));
+            IWebElement emailField = wait.Until(driver => driver.FindElement(By.Name("email")));
+            IWebElement streetField = wait.Until(driver => driver.FindElement(By.Name("street")));
+            IWebElement postalFeild = wait.Until(driver => driver.FindElement(By.Name("postal")));
+            IWebElement cityFeild = wait.Until(driver => driver.FindElement(By.Name("city")));
+            IWebElement countryFeild = wait.Until(driver => driver.FindElement(By.Name("country")));
+            IWebElement serviceFeild = wait.Until(driver => driver.FindElement(By.Name("service")));
+            IWebElement commentsFeild = wait.Until(driver => driver.FindElement(By.Name("comments")));
+            IWebElement attachmentsField = wait.Until(driver => driver.FindElement(By.Name("attachments")));
+            IWebElement submitBtn = wait.Until(driver => driver.FindElement(By.Name("submit-btn")));
 
             fNameFeild.SendKeys("Tristan");
             lNameFeild.SendKeys("Lafleur");
@@ -451,8 +347,8 @@ namespace SereneFlourish_SeleniumTests
             postalFeild.SendKeys("J2X 5S8");
             cityFeild.SendKeys("Saint-Jean-sur-Richelieu");
             countryFeild.SendKeys("Canada");
-            serviceFeild.Click();
-            serviceFeild.FindElement(By.Name("calligraphy-select")).Click();
+            Click(driver, By.Name("service"));
+            Click(driver, By.Name("Calligraphy-select"));
             commentsFeild.SendKeys("pls god, i'm begging through text write some fancy text");
 
             attachmentsField.SendKeys(projectRoot + @"Images\Calligraphy.jpg");
@@ -471,6 +367,23 @@ namespace SereneFlourish_SeleniumTests
             Assert.True(status);
 
             driver.Quit();
+        }
+
+        public bool Click(EdgeDriver driver, By by)
+        {
+            bool status = false;
+            int i = 0;
+            while (i == 0)
+                try
+                {
+                    driver.FindElement(by).Click();
+                    status = true;
+                    break;
+                }
+                catch (StaleElementReferenceException e)
+                {
+                }
+            return status;
         }
     }
 }
