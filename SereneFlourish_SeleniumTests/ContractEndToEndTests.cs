@@ -117,6 +117,71 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        [Fact]
+        // Test to see if we fail to put in values in fields
+        public void ErrorMessageEmptyInputs()
+        {
+            WebDriverWait wait = new WebDriverWait(driver, time);
+
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+            driver.Manage().Window.Maximize();
+
+            driver.Url = "http://localhost:3000/admin/contracts";
+
+            Click(By.Name("3DetailsBtn"));
+
+            IWebElement FinalCostInput = wait.Until(driver => driver.FindElement(By.Name("FinalCost")));
+
+            FinalCostInput.Clear();
+
+            Click(By.Name("SubmitBtn"));
+
+            string UpdateRequestDeny = driver.SwitchTo().Alert().Text;
+            driver.SwitchTo().Alert().Accept();
+
+            if (UpdateRequestDeny.Equals("Failed, All Info is required"))
+            {
+                status = true;
+            }
+            Assert.True(status);
+
+            driver.Quit();
+        }
+
+        [Fact]
+        // Test to see if we try to make the start date into an earlier date
+        public void ErrorMessageInvalidStartDate()
+        {
+            WebDriverWait wait = new WebDriverWait(driver, time);
+
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+            driver.Manage().Window.Maximize();
+
+            driver.Url = "http://localhost:3000/admin/contracts";
+
+            Click(By.Name("3DetailsBtn"));
+
+            IWebElement StartDateInput = wait.Until(driver => driver.FindElement(By.Name("DateCommissioned")));
+
+            StartDateInput.Clear();
+            StartDateInput.SendKeys("01/01/1950");
+
+            Click(By.Name("SubmitBtn"));
+
+            string UpdateRequestDeny = driver.SwitchTo().Alert().Text;
+            driver.SwitchTo().Alert().Accept();
+
+            if (UpdateRequestDeny.Equals("Failed, you can't set the start date to an earlier date"))
+            {
+                status = true;
+            }
+            Assert.True(status);
+
+            driver.Quit();
+        }
+
         public bool Click(By by)
         {
             bool status = false;
