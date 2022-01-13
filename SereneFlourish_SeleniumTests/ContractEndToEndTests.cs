@@ -94,6 +94,29 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        [Fact]
+        // Test to see if we encounter a completed contract
+        public void CheckDisabledSubmit()
+        {
+            WebDriverWait wait = new WebDriverWait(driver, time);
+
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+            driver.Manage().Window.Maximize();
+
+            driver.Url = "http://localhost:3000/admin/contracts";
+
+            Click(By.Name("1DetailsBtn"));
+
+            IWebElement SubmitButton = wait.Until(driver => driver.FindElement(By.Name("SubmitBtn")));
+
+            bool enabled = SubmitButton.GetAttribute("class").Contains("disabled");
+
+            Assert.False(enabled);
+
+            driver.Quit();
+        }
+
         public bool Click(By by)
         {
             bool status = false;
