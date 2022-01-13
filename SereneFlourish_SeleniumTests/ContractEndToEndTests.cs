@@ -35,6 +35,27 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        [Fact]
+        // Test to see if we can clkc on a details button to find contract details
+        public void ClickDetailsContractsButton()
+        {
+            WebDriverWait wait = new WebDriverWait(driver, time);
+
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+            driver.Manage().Window.Maximize();
+
+            driver.Url = "http://localhost:3000/admin/contracts";
+
+            Click(By.Name("1DetailsBtn"));
+
+            IWebElement PageHeader = wait.Until(driver => driver.FindElement(By.TagName("h1")));
+
+            Assert.Equal("Contract Details for Contract 1", PageHeader.Text);
+
+            driver.Quit();
+        }
+
         public bool Click(By by)
         {
             bool status = false;
