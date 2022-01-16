@@ -16,6 +16,7 @@ namespace SereneFlourish_SeleniumTests
         bool status = false;
         string projectRoot = Path.GetFullPath(@"..\..\..\");
 
+        //TC4-TSE01
         [Fact]
         public void TestHomePageVisit()
         {
@@ -25,6 +26,7 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        //TC4-TSE02
         [Fact]
         public void TestHomePageRequestServiceButton()
         {
@@ -39,7 +41,8 @@ namespace SereneFlourish_SeleniumTests
 
 
         }
-
+        
+        //TC4-TSE03
         [Fact]
         public void TestHomePageImageButtons()
         {
@@ -67,6 +70,7 @@ namespace SereneFlourish_SeleniumTests
 
         }
 
+        //TC4-TSE04
         [Fact]
         public void TestCalligraphyFormPost_FieldsFilled()
         {
@@ -126,6 +130,7 @@ namespace SereneFlourish_SeleniumTests
 
         }
 
+        //TC4-TSE05
         [Fact]
         public void TestCalligraphyFormPost_EmptyFields()
         {
@@ -153,6 +158,7 @@ namespace SereneFlourish_SeleniumTests
 
         }
 
+        //TC4-TSE06
         [Fact]
         public void TestCalligraphyFormPost_EngravingAndComment()
         {
@@ -212,6 +218,7 @@ namespace SereneFlourish_SeleniumTests
 
         }
 
+        //TC4-TSE07
         [Fact]
         public void TestCalligraphyFormPost_CalligraphyNoComment()
         {
@@ -266,6 +273,7 @@ namespace SereneFlourish_SeleniumTests
 
         }
 
+        //TC4-TSE08
         [Fact]
         public void TestCalligraphyFormPost_EngravingNoComment()
         {
@@ -320,6 +328,7 @@ namespace SereneFlourish_SeleniumTests
 
         }
 
+        //TC4-TSE09
         [Fact]
         public void SendEmailWithNoAttachmentsTest()
         {
@@ -343,7 +352,7 @@ namespace SereneFlourish_SeleniumTests
             fNameFeild.SendKeys("Tristan");
             lNameFeild.SendKeys("Lafleur");
             emailField.SendKeys("tristan.jeremy.jordan@gmail.com");
-            streetField.SendKeys("32 rue René");
+            streetField.SendKeys("32 rue Renï¿½");
             postalFeild.SendKeys("J2X 5S8");
             cityFeild.SendKeys("Saint-Jean-sur-Richelieu");
             countryFeild.SendKeys("Canada");
