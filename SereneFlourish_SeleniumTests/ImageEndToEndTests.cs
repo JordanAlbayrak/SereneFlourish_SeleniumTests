@@ -23,6 +23,7 @@ namespace SereneFlourish_SeleniumTests
             driver = new FirefoxDriver("C:\\Program Files\\Mozilla Firefox");
         }
 
+        //TC5-TSE01
         [Fact]
         public void Image_addImageAtLocationOne_ReturnOk()
         {
@@ -38,8 +39,8 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        //TC5-TSE02
         [Fact]
-
         public void Image_addImageAtLocationTwo_ReturnOk()
         {
             driver.Navigate().GoToUrl(_baseUrl + "/admin");
@@ -54,6 +55,7 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        //TC5-TSE03
         [Fact]
         public void Image_addImageAtLocationThree_ReturnOk()
         {
@@ -69,6 +71,7 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        //TC5-TSE04
         [Fact]
         public void Image_addImageAtLocationFour_ReturnOk()
         {
@@ -99,6 +102,7 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        //TC5-TSE05
         [Fact]
         public void Image_addImageAtLocationSix_ReturnOk()
         {
@@ -113,12 +117,8 @@ namespace SereneFlourish_SeleniumTests
             driver.FindElement(By.XPath("/html/body/div/div/div/div/div[1]/div/p/form/button")).Click();
             driver.Quit();
         }
-
-        //TODO: Add tests for the following:
-        //Test above need to be fully implemented
-        //update image at location 1, don't need to do all of them since they are the same as the add tests
-
-        //verify that the images are there
+        
+        //TC5-TSE06
         [Fact]
         public void Image_AccessPortfolioPage()
         {

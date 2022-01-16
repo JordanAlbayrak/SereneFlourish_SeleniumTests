@@ -16,6 +16,7 @@ namespace SereneFlourish_SeleniumTests
         TimeSpan time = TimeSpan.FromSeconds(5);
         bool status = false;
 
+        //TC2-TSE01
         [Fact]
         // Test to see if we can access the contracts page
         public void VisitContractsSummaryPageOk()
@@ -35,6 +36,7 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        //TC2-TSE02
         [Fact]
         // Test to see if we can clkc on a details button to find contract details
         public void ClickDetailsContractsButton()
@@ -56,6 +58,7 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        //TC2-TSE03
         [Fact]
         // Test to see if we can update a contract
         public void UpdateContractOk()
@@ -94,6 +97,7 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        //TC2-TSE04
         [Fact]
         // Test to see if we encounter a completed contract
         public void CheckDisabledSubmit()
@@ -117,6 +121,7 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        //TC2-TSE05
         [Fact]
         // Test to see if we fail to put in values in fields
         public void ErrorMessageEmptyInputs()
@@ -149,6 +154,7 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        //TC2-TSE06
         [Fact]
         // Test to see if we try to make the start date into an earlier date
         public void ErrorMessageInvalidStartDate()
