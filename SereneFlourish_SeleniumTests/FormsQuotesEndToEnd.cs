@@ -60,7 +60,7 @@ namespace SereneFlourish_SeleniumTests
 
             IWebElement selectorValue = wait.Until(driver => driver.FindElement(By.Name("selectorOption")));
 
-            Assert.Equal("2", selectorValue.Text);
+            Assert.Equal("1", selectorValue.Text);
 
             Click(By.Name("btnPrevious"));
 
@@ -70,27 +70,7 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Quit();
         }
-        //TC2-TSE02
-        [Fact]
-        // Test the view quote button to view a quote associated ot the proper form.
-        public void ViewQuoteForAssociatedForm()
-        {
-            WebDriverWait wait = new WebDriverWait(driver, time);
-
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-
-            driver.Manage().Window.Maximize();
-
-            driver.Url = "http://localhost:3000/admin/forms";
-
-            Click(By.CssSelector("[href *= '/admin/quote/1']"));
-
-            IWebElement quoteButton = wait.Until(driver => driver.FindElement(By.XPath("//*[@id='root']/div/div/div/div/div[2]/form/table/tbody/tr/td[1]")));
-
-            Assert.Equal("1", quoteButton.Text);
-
-            driver.Quit();
-        }
+        
         //TC2-TSE02
         [Fact]
         // Test the edit features of the quote page with valid information
