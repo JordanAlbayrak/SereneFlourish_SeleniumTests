@@ -133,6 +133,45 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Quit();
         }
+
+        [Fact]
+        // Test the edit features of the quote page with valid information to generate an email alert
+        public void TestUpdateQuoteToApproved()
+        {
+            WebDriverWait wait = new WebDriverWait(driver, time);
+
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+            driver.Manage().Window.Maximize();
+
+            driver.Url = "http://localhost:3000/admin/quote/5";
+
+            var search = driver.FindElement(By.Name("priceBox"));
+            search.Clear();
+            search.SendKeys("160");
+            search = driver.FindElement(By.Name("durationBox"));
+            search.Clear();
+            search.SendKeys("12");
+            search = driver.FindElement(By.Name("materialsBox"));
+            search.Clear();
+            search.SendKeys("Wine Bottle");
+            search = driver.FindElement(By.Name("status"));
+            var selectElement = new SelectElement(search);
+            selectElement.SelectByValue("Approved");
+            Click(By.Name("btnSubmit"));
+            Thread.Sleep(5000);
+            driver.SwitchTo().Alert().Accept();
+            string QuoteAlertText = driver.SwitchTo().Alert().Text;
+
+            if (QuoteAlertText.Equals("A new contract has been made, check your email"))
+            {
+                status = true;
+            }
+            Assert.True(status);
+
+            driver.Quit();
+        }
+
         public bool Click(By by)
         {
             bool status = false;

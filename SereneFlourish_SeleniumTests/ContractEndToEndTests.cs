@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -88,6 +89,8 @@ namespace SereneFlourish_SeleniumTests
             EndDateInput.SendKeys("01/12/2022");
 
             Click(By.Name("SubmitBtn"));
+
+            Thread.Sleep(5000);
 
             string UpdateRequestAccept = driver.SwitchTo().Alert().Text;
             driver.SwitchTo().Alert().Accept();
