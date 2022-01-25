@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -78,12 +79,18 @@ namespace SereneFlourish_SeleniumTests
             IWebElement StartDateInput = wait.Until(driver => driver.FindElement(By.Name("DateCommissioned")));
             IWebElement EndDateInput = wait.Until(driver => driver.FindElement(By.Name("EndDate")));
 
+            FinalCostInput.Clear();
             FinalCostInput.SendKeys("200");
+            DownPaymentInput.Clear();
             DownPaymentInput.SendKeys("100");
-            StartDateInput.SendKeys("06/13/2021");
-            EndDateInput.SendKeys("07/02/2021");
+            StartDateInput.Clear();
+            StartDateInput.SendKeys("01/02/2022");
+            EndDateInput.Clear();
+            EndDateInput.SendKeys("01/12/2022");
 
             Click(By.Name("SubmitBtn"));
+
+            Thread.Sleep(5000);
 
             string UpdateRequestAccept = driver.SwitchTo().Alert().Text;
             driver.SwitchTo().Alert().Accept();
@@ -142,7 +149,7 @@ namespace SereneFlourish_SeleniumTests
 
             Click(By.Name("SubmitBtn"));
 
-            string UpdateRequestDeny = driver.SwitchTo().Alert().Text;
+            string UpdateRequestDeny = wait.Until(driver => driver.SwitchTo().Alert().Text);
             driver.SwitchTo().Alert().Accept();
 
             if (UpdateRequestDeny.Equals("Failed, All Info is required"))
