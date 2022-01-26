@@ -195,6 +195,27 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        [Fact]
+        // Test to see if we can get to the montrhly warnings page
+        public void CheckMonthlyEarningsPage()
+        {
+            WebDriverWait wait = new WebDriverWait(driver, time);
+
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+            driver.Manage().Window.Maximize();
+
+            driver.Url = "http://localhost:3000/admin/contracts";
+
+            Click(By.Name("EarningsBtn"));
+
+            IWebElement header = wait.Until(driver => driver.FindElement(By.Name("EarningsHeader")));
+
+            Assert.Equal("Monthly Earnings Page", header.Text);
+
+            driver.Quit();
+        }
+
         public bool Click(By by)
         {
             bool status = false;
