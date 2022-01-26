@@ -216,6 +216,41 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        [Fact]
+        // Test to see if we can use the inputs to change the chart data
+        public void ChangeChartInputs()
+        {
+            WebDriverWait wait = new WebDriverWait(driver, time);
+
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+            driver.Manage().Window.Maximize();
+
+            driver.Url = "http://localhost:3000/admin/contracts";
+
+            Click(By.Name("EarningsBtn"));
+
+            IWebElement yaerInput = wait.Until(driver => driver.FindElement(By.Name("YearInput")));
+            IWebElement chargedHeader = wait.Until(driver => driver.FindElement(By.Name("ChargedHeader")));
+            IWebElement totalHeader = wait.Until(driver => driver.FindElement(By.Name("TotalHeader")));
+
+            string oldChargedText = chargedHeader.Text;
+            string oldTotalText = totalHeader.Text;
+
+            Click(By.Name("MonthSelect"));
+            Click(By.Name("JunOption"));
+            yaerInput.Clear();
+            yaerInput.SendKeys("2021");
+
+            Click(By.Name("SubmitBtn"));
+            Click(By.Name("SubmitBtn"));
+
+            Assert.NotEqual(oldChargedText, chargedHeader.Text);
+            Assert.NotEqual(oldTotalText, totalHeader.Text);
+
+            driver.Quit();
+        }
+
         public bool Click(By by)
         {
             bool status = false;
