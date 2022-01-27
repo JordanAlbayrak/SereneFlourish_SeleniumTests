@@ -28,11 +28,11 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Manage().Window.Maximize();
 
-            driver.Url = "http://localhost:3000/admin/contracts";
+            driver.Url = "http://localhost:3000/admin/dashboard/contracts";
 
-            IWebElement PageHeader = wait.Until(driver => driver.FindElement(By.TagName("h1")));
+            var pageHeader = wait.Until(driver => driver.FindElement(By.TagName("h1")));
 
-            Assert.Equal("Contracts Information Page", PageHeader.Text);
+            Assert.Equal("Contracts Information Page", pageHeader.Text);
 
             driver.Quit();
         }
