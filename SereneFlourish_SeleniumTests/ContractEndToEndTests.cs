@@ -327,7 +327,7 @@ namespace SereneFlourish_SeleniumTests
             return status;
         }
 
-        internal void Login()
+        private void Login()
         {
             driver.Manage().Window.Maximize();
 

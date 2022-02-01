@@ -33,6 +33,8 @@ namespace SereneFlourish_SeleniumTests
             //check if we are at localhost:3000
             wait.Until(ExpectedConditions.UrlContains("localhost:3000"));
             
+            _driver.Quit();
+            
         }
 
         [Fact]
@@ -55,6 +57,8 @@ namespace SereneFlourish_SeleniumTests
 
             //check if an alert is shown
             wait.Until(ExpectedConditions.AlertIsPresent());
+            
+            _driver.Quit();
         }
         
         [Fact]
@@ -77,6 +81,8 @@ namespace SereneFlourish_SeleniumTests
 
             //check if an alert is shown
             wait.Until(ExpectedConditions.AlertIsPresent());
+            
+            _driver.Quit();
         }
         
         [Fact]
@@ -99,6 +105,8 @@ namespace SereneFlourish_SeleniumTests
 
             //check if an alert is shown
             wait.Until(ExpectedConditions.AlertIsPresent());
+            
+            _driver.Quit();
         }
         
         [Fact]
@@ -121,6 +129,8 @@ namespace SereneFlourish_SeleniumTests
 
             //check if an alert is shown
             wait.Until(ExpectedConditions.AlertIsPresent());
+            
+            _driver.Quit();
         }
         
     }
