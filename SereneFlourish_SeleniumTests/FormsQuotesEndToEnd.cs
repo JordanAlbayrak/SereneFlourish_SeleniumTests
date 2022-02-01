@@ -3,7 +3,6 @@ using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -14,55 +13,54 @@ namespace SereneFlourish_SeleniumTests
 {
     public class FormsQuotesEndToEnd
     {
-        EdgeDriver driver = new EdgeDriver();
-        TimeSpan time = TimeSpan.FromSeconds(5);
-        bool status = false;
-        string projectRoot = Path.GetFullPath(@"..\..\..\");
+        private readonly EdgeDriver _driver = new();
+        private readonly TimeSpan _time = TimeSpan.FromSeconds(5);
+        private bool _status;
 
         //TC4-TSE01
         [Fact]
         public void TestFormsPageVisit()
         {
 
-            WebDriverWait wait = new WebDriverWait(driver, time);
+            var wait = new WebDriverWait(_driver, _time);
 
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
 
             Login();
 
-            driver.Url = "http://localhost:3000/admin/dashboard/forms";
+            _driver.Url = "http://localhost:3000/admin/dashboard/forms";
 
-            driver.Quit();
+            _driver.Quit();
         }
         //TC4-TSE01
         [Fact]
         public void TestQuotePageVisit()
         {
 
-            WebDriverWait wait = new WebDriverWait(driver, time);
+            WebDriverWait wait = new WebDriverWait(_driver, _time);
 
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
 
             Login();
 
-            driver.Url = "http://localhost:3000/admin/dashboard/quote/1";
+            _driver.Url = "http://localhost:3000/admin/dashboard/quote/1";
 
-            driver.Quit();
+            _driver.Quit();
         }
         //TC2-TSE02
         [Fact]
         // Test the navigation buttons on the forms page, next, previous and last.
         public void TestNavigationButtonsOnFormsPage()
         {
-            WebDriverWait wait = new WebDriverWait(driver, time);
+            WebDriverWait wait = new WebDriverWait(_driver, _time);
 
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
 
-            driver.Manage().Window.Maximize();
+            _driver.Manage().Window.Maximize();
 
             Login();
 
-            driver.Url = "http://localhost:3000/admin/dashboard/forms";
+            _driver.Url = "http://localhost:3000/admin/dashboard/forms";
 
             Click(By.Name("btnNext"));
 
@@ -76,7 +74,7 @@ namespace SereneFlourish_SeleniumTests
 
             Assert.Equal("1", selectorValue.Text);
 
-            driver.Quit();
+            _driver.Quit();
         }
         
         //TC2-TSE02
@@ -84,106 +82,106 @@ namespace SereneFlourish_SeleniumTests
         // Test the edit features of the quote page with valid information
         public void TestEditQuoteWithValidInformation()
         {
-            WebDriverWait wait = new WebDriverWait(driver, time);
+            WebDriverWait wait = new WebDriverWait(_driver, _time);
 
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
 
-            driver.Manage().Window.Maximize();
+            _driver.Manage().Window.Maximize();
 
             Login();
 
-            driver.Url = "http://localhost:3000/admin/dashboard/quote/1";
+            _driver.Url = "http://localhost:3000/admin/dashboard/quote/1";
 
-            var search = driver.FindElement(By.Name("priceBox"));
+            var search = _driver.FindElement(By.Name("priceBox"));
             search.Clear();
             search.SendKeys("50");
-            search = driver.FindElement(By.Name("materialsBox"));
+            search = _driver.FindElement(By.Name("materialsBox"));
             search.Clear();
             search.SendKeys("Wine Bottle");
-            search = driver.FindElement(By.Name("status"));
+            search = _driver.FindElement(By.Name("status"));
             var selectElement = new SelectElement(search);
             selectElement.SelectByValue("Approved");
             Click(By.Name("btnSubmit"));
             Thread.Sleep(5000);
-            string QuoteAlertText = driver.SwitchTo().Alert().Text;
-            driver.SwitchTo().Alert().Accept();
+            string QuoteAlertText = _driver.SwitchTo().Alert().Text;
+            _driver.SwitchTo().Alert().Accept();
 
             if (QuoteAlertText.Equals("Quote updated"))
             {
-                status = true;
+                _status = true;
             }
-            Assert.True(status);
+            Assert.True(_status);
 
-            driver.Quit();
+            _driver.Quit();
         }
         //TC2-TSE02
         [Fact]
         // Test the edit features of the quote page with Invalid information
         public void TestEditQuoteWithInvalidInformation()
         {
-            WebDriverWait wait = new WebDriverWait(driver, time);
+            WebDriverWait wait = new WebDriverWait(_driver, _time);
 
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
 
-            driver.Manage().Window.Maximize();
+            _driver.Manage().Window.Maximize();
 
             Login();
 
-            driver.Url = "http://localhost:3000/admin/dashboard/quote/1";
+            _driver.Url = "http://localhost:3000/admin/dashboard/quote/1";
 
-            var search = driver.FindElement(By.Name("priceBox"));
+            var search = _driver.FindElement(By.Name("priceBox"));
             search.Clear();
             search.SendKeys("Test");
-            string QuoteAlertText = driver.SwitchTo().Alert().Text;
-            driver.SwitchTo().Alert().Dismiss();
+            string QuoteAlertText = _driver.SwitchTo().Alert().Text;
+            _driver.SwitchTo().Alert().Dismiss();
 
             if (QuoteAlertText.Equals("Please enter a valid number") | QuoteAlertText.Equals("Error with quote, please verify inputted content"))
             {
-                status = true;
+                _status = true;
             }
-            Assert.True(status);
+            Assert.True(_status);
 
-            driver.Quit();
+            _driver.Quit();
         }
 
         [Fact]
         // Test the edit features of the quote page with valid information to generate an email alert
         public void TestUpdateQuoteToApproved()
         {
-            WebDriverWait wait = new WebDriverWait(driver, time);
+            WebDriverWait wait = new WebDriverWait(_driver, _time);
 
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
 
-            driver.Manage().Window.Maximize();
+            _driver.Manage().Window.Maximize();
 
             Login();
 
-            driver.Url = "http://localhost:3000/admin/dashboard/quote/1";
+            _driver.Url = "http://localhost:3000/admin/dashboard/quote/1";
 
-            var search = driver.FindElement(By.Name("priceBox"));
+            var search = _driver.FindElement(By.Name("priceBox"));
             search.Clear();
             search.SendKeys("160");
-            search = driver.FindElement(By.Name("durationBox"));
+            search = _driver.FindElement(By.Name("durationBox"));
             search.Clear();
             search.SendKeys("12");
-            search = driver.FindElement(By.Name("materialsBox"));
+            search = _driver.FindElement(By.Name("materialsBox"));
             search.Clear();
             search.SendKeys("Wine Bottle");
-            search = driver.FindElement(By.Name("status"));
+            search = _driver.FindElement(By.Name("status"));
             var selectElement = new SelectElement(search);
             selectElement.SelectByValue("Approved");
             Click(By.Name("btnSubmit"));
             Thread.Sleep(5000);
-            driver.SwitchTo().Alert().Accept();
-            string QuoteAlertText = driver.SwitchTo().Alert().Text;
+            _driver.SwitchTo().Alert().Accept();
+            string quoteAlertText = _driver.SwitchTo().Alert().Text;
 
-            if (QuoteAlertText.Equals("A new contract has been made, check your email"))
+            if (quoteAlertText.Equals("A new contract has been made, check your email"))
             {
-                status = true;
+                _status = true;
             }
-            Assert.True(status);
+            Assert.True(_status);
 
-            driver.Quit();
+            _driver.Quit();
         }
 
         public bool Click(By by)
@@ -193,7 +191,7 @@ namespace SereneFlourish_SeleniumTests
             while (i == 0)
                 try
                 {
-                    driver.FindElement(by).Click();
+                    _driver.FindElement(by).Click();
                     status = true;
                     break;
                 }
@@ -205,16 +203,16 @@ namespace SereneFlourish_SeleniumTests
 
         internal void Login()
         {
-            driver.Manage().Window.Maximize();
+            _driver.Manage().Window.Maximize();
 
-            driver.Url = "http://localhost:3000/admin/login";
+            _driver.Url = "http://localhost:3000/admin/login";
 
             // Enter username
-            driver.FindElement(By.Id("username")).SendKeys("admin");
-            driver.FindElement(By.Id("password")).SendKeys("admin");
+            _driver.FindElement(By.Id("username")).SendKeys("admin");
+            _driver.FindElement(By.Id("password")).SendKeys("admin");
 
             // click login button
-            driver.FindElement(By.CssSelector("button[type='submit']")).Click();
+            _driver.FindElement(By.CssSelector("button[type='submit']")).Click();
 
             Thread.Sleep(3000);
         }

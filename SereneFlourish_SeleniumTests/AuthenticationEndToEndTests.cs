@@ -13,6 +13,7 @@ namespace SereneFlourish_SeleniumTests
         private readonly TimeSpan _time = TimeSpan.FromSeconds(5);
 
         [Fact]
+        //TC9-TSE01
         public void Login_Should_Be_Successful()
         {
             var wait = new WebDriverWait(_driver, _time);
@@ -33,9 +34,12 @@ namespace SereneFlourish_SeleniumTests
             //check if we are at localhost:3000
             wait.Until(ExpectedConditions.UrlContains("localhost:3000"));
             
+            _driver.Quit();
+            
         }
 
         [Fact]
+        //TC9-TSE02
         public void Login_Should_Fail()
         {
             var wait = new WebDriverWait(_driver, _time);
@@ -55,9 +59,12 @@ namespace SereneFlourish_SeleniumTests
 
             //check if an alert is shown
             wait.Until(ExpectedConditions.AlertIsPresent());
+            
+            _driver.Quit();
         }
         
         [Fact]
+        //TC9-TSE03
         public void Login_Should_Fail_With_Empty_Fields()
         {
             var wait = new WebDriverWait(_driver, _time);
@@ -77,9 +84,12 @@ namespace SereneFlourish_SeleniumTests
 
             //check if an alert is shown
             wait.Until(ExpectedConditions.AlertIsPresent());
+            
+            _driver.Quit();
         }
         
         [Fact]
+        //TC9-TSE04
         public void Login_Should_Fail_With_Username()
         {
             var wait = new WebDriverWait(_driver, _time);
@@ -99,8 +109,11 @@ namespace SereneFlourish_SeleniumTests
 
             //check if an alert is shown
             wait.Until(ExpectedConditions.AlertIsPresent());
+            
+            _driver.Quit();
         }
         
+        //TC9-TSE05
         [Fact]
         public void Login_Should_Fail_With_Password()
         {
@@ -121,6 +134,8 @@ namespace SereneFlourish_SeleniumTests
 
             //check if an alert is shown
             wait.Until(ExpectedConditions.AlertIsPresent());
+            
+            _driver.Quit();
         }
         
     }
