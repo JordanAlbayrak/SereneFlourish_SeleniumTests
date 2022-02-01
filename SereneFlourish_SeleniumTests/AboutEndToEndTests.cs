@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,7 +41,7 @@ namespace SereneFlourish_SeleniumTests
         //TC2-TSE03
         [Fact]
         // Test to see if we can update a contract
-        public void UpdateContractOk()
+        public void UpdateAboutOk()
         {
             WebDriverWait wait = new WebDriverWait(driver, time);
 
@@ -48,7 +49,12 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Manage().Window.Maximize();
 
-            driver.Url = "http://localhost:3000/about";
+            Login();
+ 
+            wait.Until(driver => driver.Url = "http://localhost:3000/about");
+
+            //driver.Url = "http://localhost:3000/about";
+            //Click(By.XPath("//*[@id='basic-navbar-nav']/div[1]/div[4]/a"));
 
             Click(By.Name("btnEdit"));
 
@@ -94,9 +100,7 @@ namespace SereneFlourish_SeleniumTests
 
             Click(By.Name("btnSave"));
 
-            Thread.Sleep(5000);
-
-            string UpdateRequestAccept = driver.SwitchTo().Alert().Text;
+            string UpdateRequestAccept = wait.Until(driver => driver.SwitchTo().Alert().Text);
             driver.SwitchTo().Alert().Accept();
 
             if (UpdateRequestAccept.Equals("About Info updated"))
@@ -122,6 +126,22 @@ namespace SereneFlourish_SeleniumTests
                 {
                 }
             return status;
+        }
+
+        internal void Login()
+        {
+            driver.Manage().Window.Maximize();
+
+            driver.Url = "http://localhost:3000/admin/login";
+
+            // Enter username
+            driver.FindElement(By.Id("username")).SendKeys("admin");
+            driver.FindElement(By.Id("password")).SendKeys("admin");
+
+            // click login button
+            driver.FindElement(By.CssSelector("button[type='submit']")).Click();
+
+            Thread.Sleep(3000);
         }
     }
  }

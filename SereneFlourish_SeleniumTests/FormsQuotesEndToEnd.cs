@@ -23,11 +23,14 @@ namespace SereneFlourish_SeleniumTests
         [Fact]
         public void TestFormsPageVisit()
         {
+
             WebDriverWait wait = new WebDriverWait(driver, time);
 
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
 
-            driver.Url = "http://localhost:3000/forms";
+            Login();
+
+            driver.Url = "http://localhost:3000/admin/dashboard/forms";
 
             driver.Quit();
         }
@@ -35,11 +38,14 @@ namespace SereneFlourish_SeleniumTests
         [Fact]
         public void TestQuotePageVisit()
         {
+
             WebDriverWait wait = new WebDriverWait(driver, time);
 
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
 
-            driver.Url = "http://localhost:3000/quote/1";
+            Login();
+
+            driver.Url = "http://localhost:3000/admin/dashboard/quote/1";
 
             driver.Quit();
         }
@@ -54,7 +60,9 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Manage().Window.Maximize();
 
-            driver.Url = "http://localhost:3000/admin/forms";
+            Login();
+
+            driver.Url = "http://localhost:3000/admin/dashboard/forms";
 
             Click(By.Name("btnNext"));
 
@@ -82,7 +90,9 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Manage().Window.Maximize();
 
-            driver.Url = "http://localhost:3000/admin/quote/1";
+            Login();
+
+            driver.Url = "http://localhost:3000/admin/dashboard/quote/1";
 
             var search = driver.FindElement(By.Name("priceBox"));
             search.Clear();
@@ -117,7 +127,9 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Manage().Window.Maximize();
 
-            driver.Url = "http://localhost:3000/admin/quote/1";
+            Login();
+
+            driver.Url = "http://localhost:3000/admin/dashboard/quote/1";
 
             var search = driver.FindElement(By.Name("priceBox"));
             search.Clear();
@@ -144,7 +156,9 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Manage().Window.Maximize();
 
-            driver.Url = "http://localhost:3000/admin/quote/5";
+            Login();
+
+            driver.Url = "http://localhost:3000/admin/dashboard/quote/1";
 
             var search = driver.FindElement(By.Name("priceBox"));
             search.Clear();
@@ -187,6 +201,22 @@ namespace SereneFlourish_SeleniumTests
                 {
                 }
             return status;
+        }
+
+        internal void Login()
+        {
+            driver.Manage().Window.Maximize();
+
+            driver.Url = "http://localhost:3000/admin/login";
+
+            // Enter username
+            driver.FindElement(By.Id("username")).SendKeys("admin");
+            driver.FindElement(By.Id("password")).SendKeys("admin");
+
+            // click login button
+            driver.FindElement(By.CssSelector("button[type='submit']")).Click();
+
+            Thread.Sleep(3000);
         }
     }
 }
