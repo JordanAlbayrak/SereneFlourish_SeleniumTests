@@ -207,6 +207,7 @@ namespace SereneFlourish_SeleniumTests
         }
 
         [Fact]
+        //TC2-TSE07
         // Test to see if we can get to the montrhly warnings page
         public void CheckMonthlyEarningsPage()
         {
@@ -230,6 +231,7 @@ namespace SereneFlourish_SeleniumTests
         }
 
         [Fact]
+        //TC2-TSE08
         // Test to see if we can use the inputs to change the chart data
         public void ChangeChartInputs()
         {
@@ -267,6 +269,7 @@ namespace SereneFlourish_SeleniumTests
         }
 
         [Fact]
+        //TC2-TSE09
         // Test to see if we can be prevented to update the chart because of overstepping min and max of spinner
         public void ChangeChartInputsMinMax()
         {

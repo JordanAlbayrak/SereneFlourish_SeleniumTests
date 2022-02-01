@@ -19,7 +19,7 @@ namespace SereneFlourish_SeleniumTests
         TimeSpan time = TimeSpan.FromSeconds(5);
         bool status = false;
 
-        //TC4-TSE01
+        //TC8-TSE01
         [Fact]
         public void TestAboutPageVisit()
         {
@@ -38,7 +38,7 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
-        //TC2-TSE03
+        //TC8-TSE02
         [Fact]
         // Test to see if we can update a contract
         public void UpdateAboutOk()
