@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,8 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Manage().Window.Maximize();
 
+            Login();
+
             driver.Url = "http://localhost:3000/admin/dashboard/contracts";
 
             var pageHeader = wait.Until(driver => driver.FindElement(By.TagName("h1")));
@@ -48,7 +51,9 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Manage().Window.Maximize();
 
-            driver.Url = "http://localhost:3000/admin/contracts";
+            Login();
+
+            driver.Url = "http://localhost:3000/admin/dashboard/contracts";
 
             Click(By.Name("1DetailsBtn"));
 
@@ -70,7 +75,9 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Manage().Window.Maximize();
 
-            driver.Url = "http://localhost:3000/admin/contracts";
+            Login();
+
+            driver.Url = "http://localhost:3000/admin/dashboard/contracts";
 
             Click(By.Name("3DetailsBtn"));
 
@@ -83,10 +90,8 @@ namespace SereneFlourish_SeleniumTests
             FinalCostInput.SendKeys("200");
             DownPaymentInput.Clear();
             DownPaymentInput.SendKeys("100");
-            StartDateInput.Clear();
-            StartDateInput.SendKeys("01/02/2022");
             EndDateInput.Clear();
-            EndDateInput.SendKeys("01/12/2022");
+            EndDateInput.SendKeys("12/31/2022");
 
             Click(By.Name("SubmitBtn"));
 
@@ -115,7 +120,9 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Manage().Window.Maximize();
 
-            driver.Url = "http://localhost:3000/admin/contracts";
+            Login();
+
+            driver.Url = "http://localhost:3000/admin/dashboard/contracts";
 
             Click(By.Name("1DetailsBtn"));
 
@@ -139,7 +146,9 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Manage().Window.Maximize();
 
-            driver.Url = "http://localhost:3000/admin/contracts";
+            Login();
+
+            driver.Url = "http://localhost:3000/admin/dashboard/contracts";
 
             Click(By.Name("3DetailsBtn"));
 
@@ -172,7 +181,9 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Manage().Window.Maximize();
 
-            driver.Url = "http://localhost:3000/admin/contracts";
+            Login();
+
+            driver.Url = "http://localhost:3000/admin/dashboard/contracts";
 
             Click(By.Name("3DetailsBtn"));
 
@@ -205,7 +216,9 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Manage().Window.Maximize();
 
-            driver.Url = "http://localhost:3000/admin/contracts";
+            Login();
+
+            driver.Url = "http://localhost:3000/admin/dashboard/contracts";
 
             Click(By.Name("EarningsBtn"));
 
@@ -226,7 +239,9 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Manage().Window.Maximize();
 
-            driver.Url = "http://localhost:3000/admin/contracts";
+            Login();
+
+            driver.Url = "http://localhost:3000/admin/dashboard/contracts";
 
             Click(By.Name("EarningsBtn"));
 
@@ -261,7 +276,9 @@ namespace SereneFlourish_SeleniumTests
 
             driver.Manage().Window.Maximize();
 
-            driver.Url = "http://localhost:3000/admin/contracts";
+            Login();
+
+            driver.Url = "http://localhost:3000/admin/dashboard/contracts";
 
             Click(By.Name("EarningsBtn"));
 
@@ -308,6 +325,22 @@ namespace SereneFlourish_SeleniumTests
                 {
                 }
             return status;
+        }
+
+        internal void Login()
+        {
+            driver.Manage().Window.Maximize();
+
+            driver.Url = "http://localhost:3000/admin/login";
+
+            // Enter username
+            driver.FindElement(By.Id("username")).SendKeys("admin");
+            driver.FindElement(By.Id("password")).SendKeys("admin");
+
+            // click login button
+            driver.FindElement(By.CssSelector("button[type='submit']")).Click();
+
+            Thread.Sleep(3000);
         }
     }
 }
