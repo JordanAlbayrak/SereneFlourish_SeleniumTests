@@ -413,6 +413,58 @@ namespace SereneFlourish_SeleniumTests
             driver.Quit();
         }
 
+        [Fact]
+        public void TestRecaptchaErrorMessage()
+        {
+            WebDriverWait wait = new WebDriverWait(driver, time);
+
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+            driver.Url = "http://localhost:3000/form";
+
+            driver.Manage().Window.Maximize();
+
+            IWebElement fNameFeild = wait.Until(driver => driver.FindElement(By.Name("firstName")));
+            IWebElement lNameFeild = wait.Until(driver => driver.FindElement(By.Name("lastName")));
+            IWebElement emailField = wait.Until(driver => driver.FindElement(By.Name("email")));
+            IWebElement streetField = wait.Until(driver => driver.FindElement(By.Name("street")));
+            IWebElement postalFeild = wait.Until(driver => driver.FindElement(By.Name("postal")));
+            IWebElement cityFeild = wait.Until(driver => driver.FindElement(By.Name("city")));
+            IWebElement countryFeild = wait.Until(driver => driver.FindElement(By.Name("country")));
+            IWebElement serviceFeild = wait.Until(driver => driver.FindElement(By.Name("service")));
+            IWebElement commentsFeild = wait.Until(driver => driver.FindElement(By.Name("comments")));
+            IWebElement attachmentsField = wait.Until(driver => driver.FindElement(By.Name("attachments")));
+            string submitBtn = "//*[@id=\"root\"]/div/div/div/div/div/div[2]/div[2]/form/div[1]/button[1]";
+
+            fNameFeild.SendKeys("Tristan");
+            lNameFeild.SendKeys("Lafleur");
+            emailField.SendKeys("tristan.jeremy.jordan@gmail.com");
+            streetField.SendKeys("32 rue Ren�");
+            postalFeild.SendKeys("J2X 5S8");
+            cityFeild.SendKeys("Saint-Jean-sur-Richelieu");
+            countryFeild.SendKeys("Canada");
+            Click(driver, By.Name("service"));
+            Click(driver, By.Name("Calligraphy-select"));
+            commentsFeild.SendKeys("pls god, i'm begging through text write some fancy text");
+
+            attachmentsField.SendKeys(projectRoot + @"Images\Calligraphy.jpg");
+
+            Click(driver, By.XPath(submitBtn));
+
+            wait.Until(ExpectedConditions.AlertIsPresent());
+
+            string recaptchaErrorMessage = driver.SwitchTo().Alert().Text;
+            driver.SwitchTo().Alert().Accept();
+
+            if (recaptchaErrorMessage.Equals("Failed, you need to validate reCAPTCHA first"))
+            {
+                status = true;
+            }
+            Assert.True(status);
+
+            driver.Quit();
+        }
+
         public bool Click(EdgeDriver driver, By by)
         {
             bool status = false;
