@@ -3,8 +3,10 @@ using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.IO;
+using System.Threading;
 using Xunit;
 
 namespace SereneFlourish_SeleniumTests
@@ -112,10 +114,20 @@ namespace SereneFlourish_SeleniumTests
             search = driver.FindElement(By.Name("attachments"));
             search.SendKeys(projectRoot + @"Images\Calligraphy.jpg");
 
+            wait.Until(ExpectedConditions.FrameToBeAvailableAndSwitchToIt(By.XPath("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha')]")));
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("div.recaptcha-checkbox-border"))).Click();
+            driver.SwitchTo().DefaultContent();
+
+            Thread.Sleep(2000);
+
             search = driver.FindElement(By.Name("submit-btn"));
             search.Click();
 
+            wait.Until(ExpectedConditions.AlertIsPresent());
+
             driver.SwitchTo().Alert().Accept();
+
+            wait.Until(ExpectedConditions.AlertIsPresent());
 
             string emailRequestSentAlertText = driver.SwitchTo().Alert().Text;
             driver.SwitchTo().Alert().Accept();
@@ -200,10 +212,20 @@ namespace SereneFlourish_SeleniumTests
             search = driver.FindElement(By.Name("attachments"));
             search.SendKeys(projectRoot + @"Images\Calligraphy.jpg");
 
+            wait.Until(ExpectedConditions.FrameToBeAvailableAndSwitchToIt(By.XPath("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha')]")));
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("div.recaptcha-checkbox-border"))).Click();
+            driver.SwitchTo().DefaultContent();
+
+            Thread.Sleep(2000);
+
             search = driver.FindElement(By.Name("submit-btn"));
             search.Click();
 
+            wait.Until(ExpectedConditions.AlertIsPresent());
+
             driver.SwitchTo().Alert().Accept();
+
+            wait.Until(ExpectedConditions.AlertIsPresent());
 
             string emailRequestSentAlertText = driver.SwitchTo().Alert().Text;
             driver.SwitchTo().Alert().Accept();
@@ -337,6 +359,9 @@ namespace SereneFlourish_SeleniumTests
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
 
             driver.Url = "http://localhost:3000/form";
+
+            driver.Manage().Window.Maximize();
+
             IWebElement fNameFeild = wait.Until(driver => driver.FindElement(By.Name("firstName")));
             IWebElement lNameFeild = wait.Until(driver => driver.FindElement(By.Name("lastName")));
             IWebElement emailField = wait.Until(driver => driver.FindElement(By.Name("email")));
@@ -347,7 +372,7 @@ namespace SereneFlourish_SeleniumTests
             IWebElement serviceFeild = wait.Until(driver => driver.FindElement(By.Name("service")));
             IWebElement commentsFeild = wait.Until(driver => driver.FindElement(By.Name("comments")));
             IWebElement attachmentsField = wait.Until(driver => driver.FindElement(By.Name("attachments")));
-            IWebElement submitBtn = wait.Until(driver => driver.FindElement(By.Name("submit-btn")));
+            string submitBtn = "//*[@id=\"root\"]/div/div/div/div/div/div[2]/div[2]/form/div[1]/button[1]";
 
             fNameFeild.SendKeys("Tristan");
             lNameFeild.SendKeys("Lafleur");
@@ -362,14 +387,76 @@ namespace SereneFlourish_SeleniumTests
 
             attachmentsField.SendKeys(projectRoot + @"Images\Calligraphy.jpg");
 
-            submitBtn.Click();
+            wait.Until(ExpectedConditions.FrameToBeAvailableAndSwitchToIt(By.XPath("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha')]")));
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("div.recaptcha-checkbox-border"))).Click();
+            driver.SwitchTo().DefaultContent();
+
+            Thread.Sleep(2000);
+
+            Click(driver, By.XPath(submitBtn));
+
+            wait.Until(ExpectedConditions.AlertIsPresent());
 
             driver.SwitchTo().Alert().Accept();
+
+            wait.Until(ExpectedConditions.AlertIsPresent());
 
             string emailRequestSentAlertText = driver.SwitchTo().Alert().Text;
             driver.SwitchTo().Alert().Accept();
 
             if (emailRequestSentAlertText.Equals("Thank you for your request, an email has been sent your way!"))
+            {
+                status = true;
+            }
+            Assert.True(status);
+
+            driver.Quit();
+        }
+
+        [Fact]
+        public void TestRecaptchaErrorMessage()
+        {
+            WebDriverWait wait = new WebDriverWait(driver, time);
+
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+            driver.Url = "http://localhost:3000/form";
+
+            driver.Manage().Window.Maximize();
+
+            IWebElement fNameFeild = wait.Until(driver => driver.FindElement(By.Name("firstName")));
+            IWebElement lNameFeild = wait.Until(driver => driver.FindElement(By.Name("lastName")));
+            IWebElement emailField = wait.Until(driver => driver.FindElement(By.Name("email")));
+            IWebElement streetField = wait.Until(driver => driver.FindElement(By.Name("street")));
+            IWebElement postalFeild = wait.Until(driver => driver.FindElement(By.Name("postal")));
+            IWebElement cityFeild = wait.Until(driver => driver.FindElement(By.Name("city")));
+            IWebElement countryFeild = wait.Until(driver => driver.FindElement(By.Name("country")));
+            IWebElement serviceFeild = wait.Until(driver => driver.FindElement(By.Name("service")));
+            IWebElement commentsFeild = wait.Until(driver => driver.FindElement(By.Name("comments")));
+            IWebElement attachmentsField = wait.Until(driver => driver.FindElement(By.Name("attachments")));
+            string submitBtn = "//*[@id=\"root\"]/div/div/div/div/div/div[2]/div[2]/form/div[1]/button[1]";
+
+            fNameFeild.SendKeys("Tristan");
+            lNameFeild.SendKeys("Lafleur");
+            emailField.SendKeys("tristan.jeremy.jordan@gmail.com");
+            streetField.SendKeys("32 rue Ren�");
+            postalFeild.SendKeys("J2X 5S8");
+            cityFeild.SendKeys("Saint-Jean-sur-Richelieu");
+            countryFeild.SendKeys("Canada");
+            Click(driver, By.Name("service"));
+            Click(driver, By.Name("Calligraphy-select"));
+            commentsFeild.SendKeys("pls god, i'm begging through text write some fancy text");
+
+            attachmentsField.SendKeys(projectRoot + @"Images\Calligraphy.jpg");
+
+            Click(driver, By.XPath(submitBtn));
+
+            wait.Until(ExpectedConditions.AlertIsPresent());
+
+            string recaptchaErrorMessage = driver.SwitchTo().Alert().Text;
+            driver.SwitchTo().Alert().Accept();
+
+            if (recaptchaErrorMessage.Equals("Failed, you need to validate reCAPTCHA first"))
             {
                 status = true;
             }
