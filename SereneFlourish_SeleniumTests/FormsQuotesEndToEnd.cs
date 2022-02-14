@@ -184,6 +184,64 @@ namespace SereneFlourish_SeleniumTests
             _driver.Quit();
         }
 
+        [Fact]
+        // Test the filtering by creation date feature on the forms page.
+        public void TestFilterByCreationDate()
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, _time);
+
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+            _driver.Manage().Window.Maximize();
+
+            Login();
+
+            _driver.Url = "http://localhost:3000/admin/dashboard/forms";
+
+            IWebElement CreationDateInput = wait.Until(driver => driver.FindElement(By.Name("CreatedDateFilter")));
+
+            CreationDateInput.Clear();
+            CreationDateInput.SendKeys("02/04/2022");
+
+
+            if (_driver.FindElement(By.XPath("//*[contains(text(), '2/4/2022')]")).Displayed)
+            {
+                _status = true;
+            }
+            Assert.True(_status);
+
+            _driver.Quit();
+        }
+        [Fact]
+        // Test the filtering by service type feature on the forms page.
+        public void TestFilterByServiceType()
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, _time);
+
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+            _driver.Manage().Window.Maximize();
+
+            Login();
+
+            _driver.Url = "http://localhost:3000/admin/dashboard/forms";
+
+            IWebElement ServiceTypeInput = wait.Until(driver => driver.FindElement(By.XPath("//*[@id=\"react-select-2-input\"]")));
+
+            ServiceTypeInput.Clear();
+            ServiceTypeInput.SendKeys("Calligraphy");
+            ServiceTypeInput.SendKeys(Keys.Enter);
+
+
+            if (_driver.FindElement(By.TagName("td")).Text.Equals("Calligraphy"))
+            {
+                _status = true;
+            }
+            Assert.True(_status);
+
+            _driver.Quit();
+        }
+
         public bool Click(By by)
         {
             bool status = false;
