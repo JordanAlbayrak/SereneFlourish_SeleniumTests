@@ -87,66 +87,62 @@ namespace SereneFlourish_SeleniumTests
             IWebElement search = driver.FindElement(By.XPath("/html/body/div/body/nav[1]/div/a[3]"));
             search.Click();
 
-            ZoomOut();
+            search = driver.FindElement(By.Name("firstName"));
 
-            Thread.Sleep(2000);
+            search.SendKeys("John");
 
-            //search = driver.FindElement(By.Name("firstName"));
+            search = driver.FindElement(By.Name("lastName"));
+            search.SendKeys("Doe");
 
-            //search.SendKeys("John");
+            search = driver.FindElement(By.Name("email"));
+            search.SendKeys("tristan.jeremy.jordan@gmail.com");
 
-            //search = driver.FindElement(By.Name("lastName"));
-            //search.SendKeys("Doe");
+            search = driver.FindElement(By.Name("street"));
+            search.SendKeys("SexyStreet");
 
-            //search = driver.FindElement(By.Name("email"));
-            //search.SendKeys("tristan.jeremy.jordan@gmail.com");
+            search = driver.FindElement(By.Name("postal"));
+            search.SendKeys("J4Y1P1");
 
-            //search = driver.FindElement(By.Name("street"));
-            //search.SendKeys("SexyStreet");
+            search = driver.FindElement(By.Name("city"));
+            search.SendKeys("CoolCity");
 
-            //search = driver.FindElement(By.Name("postal"));
-            //search.SendKeys("J4Y1P1");
+            search = driver.FindElement(By.Name("country"));
+            search.SendKeys("CockCountry");
 
-            //search = driver.FindElement(By.Name("city"));
-            //search.SendKeys("CoolCity");
+            Click(driver, By.XPath("/html/body/div[1]/body/div/div/div/div[2]/div[2]/form/div[1]/div[3]/div[1]/select"));
+            Click(driver, By.XPath("/html/body/div[1]/body/div/div/div/div[2]/div[2]/form/div[1]/div[3]/div[1]/select/option[3]"));
 
-            //search = driver.FindElement(By.Name("country"));
-            //search.SendKeys("CockCountry");
+            search = driver.FindElement(By.Name("comments"));
+            search.SendKeys("Test Comment Calligraphy!");
 
-            //Click(driver, By.Name("service"));
-            //Click(driver, By.Name("Calligraphy-select"));
-
-            //search = driver.FindElement(By.Name("comments"));
-            //search.SendKeys("Test Comment Calligraphy!");
-
-            //search = driver.FindElement(By.Name("attachments"));
-            //search.SendKeys(projectRoot + @"Images\Calligraphy.jpg");
+            search = driver.FindElement(By.Name("attachments"));
+            search.SendKeys(projectRoot + @"Images\Calligraphy.jpg");
 
             wait.Until(ExpectedConditions.FrameToBeAvailableAndSwitchToIt(By.XPath("//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha')]")));
             wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("div.recaptcha-checkbox-border"))).Click();
             driver.SwitchTo().DefaultContent();
 
-            //Thread.Sleep(2000);
+            Thread.Sleep(2000);
 
-            //search = driver.FindElement(By.Name("submit-btn"));
-            //search.Click();
+            search = driver.FindElement(By.Name("submit-btn"));
+            search.Click();
 
-            //wait.Until(ExpectedConditions.AlertIsPresent());
+            wait.Until(ExpectedConditions.AlertIsPresent());
 
-            //driver.SwitchTo().Alert().Accept();
+            driver.SwitchTo().Alert().Accept();
 
-            //wait.Until(ExpectedConditions.AlertIsPresent());
+            wait.Until(ExpectedConditions.AlertIsPresent());
 
-            //string emailRequestSentAlertText = driver.SwitchTo().Alert().Text;
-            //driver.SwitchTo().Alert().Accept();
+            string emailRequestSentAlertText = driver.SwitchTo().Alert().Text;
+            driver.SwitchTo().Alert().Accept();
 
-            //if (emailRequestSentAlertText.Equals("Thank you for your request, an email has been sent your way!"))
-            //{
-            //    status = true;
-            //}
-            //Assert.True(status);
+            if (emailRequestSentAlertText.Equals("Thank you for your request, an email has been sent your way!"))
+            {
+                status = true;
+            }
+            Assert.True(status);
 
-            //driver.Quit();
+            driver.Quit();
 
         }
 
