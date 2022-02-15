@@ -18,6 +18,9 @@ namespace SereneFlourish_SeleniumTests
         bool status = false;
         string projectRoot = Path.GetFullPath(@"..\..\..\");
 
+        private int ZoomValue = 100;
+        private int ZoomIncrement = 20;
+
         //TC4-TSE01
         [Fact]
         public void TestHomePageVisit()
@@ -36,8 +39,8 @@ namespace SereneFlourish_SeleniumTests
 
             WebDriverWait wait = new WebDriverWait(driver, time);
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            driver.Url = "http://localhost:3000/";
-            IWebElement search = driver.FindElement(By.Name("nbForm"));
+            driver.Url = "http://localhost:3000/home";
+            IWebElement search = driver.FindElement(By.XPath("/html/body/div/body/nav[1]/div/a[3]"));
             search.Click();
             driver.Quit();
 
@@ -52,7 +55,7 @@ namespace SereneFlourish_SeleniumTests
 
             WebDriverWait wait = new WebDriverWait(driver, time);
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            driver.Url = "http://localhost:3000/";
+            driver.Url = "http://localhost:3000/home";
 
             //Press calligraphy img then go back
             IWebElement search = driver.FindElement(By.Name("calligraphy-img"));
@@ -80,11 +83,12 @@ namespace SereneFlourish_SeleniumTests
 
             WebDriverWait wait = new WebDriverWait(driver, time);
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            driver.Url = "http://localhost:3000/";
-            IWebElement search = driver.FindElement(By.Name("nbForm"));
+            driver.Url = "http://localhost:3000/home";
+            IWebElement search = driver.FindElement(By.XPath("/html/body/div/body/nav[1]/div/a[3]"));
             search.Click();
 
             search = driver.FindElement(By.Name("firstName"));
+
             search.SendKeys("John");
 
             search = driver.FindElement(By.Name("lastName"));
@@ -105,8 +109,8 @@ namespace SereneFlourish_SeleniumTests
             search = driver.FindElement(By.Name("country"));
             search.SendKeys("CockCountry");
 
-            Click(driver, By.Name("service"));
-            Click(driver, By.Name("Calligraphy-select"));
+            Click(driver, By.XPath("/html/body/div[1]/body/div/div/div/div[2]/div[2]/form/div[1]/div[3]/div[1]/select"));
+            Click(driver, By.XPath("/html/body/div[1]/body/div/div/div/div[2]/div[2]/form/div[1]/div[3]/div[1]/select/option[3]"));
 
             search = driver.FindElement(By.Name("comments"));
             search.SendKeys("Test Comment Calligraphy!");
@@ -150,8 +154,8 @@ namespace SereneFlourish_SeleniumTests
 
             WebDriverWait wait = new WebDriverWait(driver, time);
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            driver.Url = "http://localhost:3000/";
-            IWebElement search = driver.FindElement(By.Name("nbForm"));
+            driver.Url = "http://localhost:3000/home";
+            IWebElement search = driver.FindElement(By.XPath("/html/body/div/body/nav[1]/div/a[3]"));
             search.Click();
 
             search = driver.FindElement(By.Name("submit-btn"));
@@ -178,8 +182,8 @@ namespace SereneFlourish_SeleniumTests
 
             WebDriverWait wait = new WebDriverWait(driver, time);
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            driver.Url = "http://localhost:3000/";
-            IWebElement search = driver.FindElement(By.Name("nbForm"));
+            driver.Url = "http://localhost:3000/home";
+            IWebElement search = driver.FindElement(By.XPath("/html/body/div/body/nav[1]/div/a[3]"));
             search.Click();
 
             search = driver.FindElement(By.Name("firstName"));
@@ -248,8 +252,8 @@ namespace SereneFlourish_SeleniumTests
 
             WebDriverWait wait = new WebDriverWait(driver, time);
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            driver.Url = "http://localhost:3000/";
-            IWebElement search = driver.FindElement(By.Name("nbForm"));
+            driver.Url = "http://localhost:3000/home";
+            IWebElement search = driver.FindElement(By.XPath("/html/body/div/body/nav[1]/div/a[3]"));
             search.Click();
 
             search = driver.FindElement(By.Name("firstName"));
@@ -303,8 +307,8 @@ namespace SereneFlourish_SeleniumTests
 
             WebDriverWait wait = new WebDriverWait(driver, time);
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-            driver.Url = "http://localhost:3000/";
-            IWebElement search = driver.FindElement(By.Name("nbForm"));
+            driver.Url = "http://localhost:3000/home";
+            IWebElement search = driver.FindElement(By.XPath("/html/body/div/body/nav[1]/div/a[3]"));
             search.Click();
 
             search = driver.FindElement(By.Name("firstName"));
@@ -372,7 +376,7 @@ namespace SereneFlourish_SeleniumTests
             IWebElement serviceFeild = wait.Until(driver => driver.FindElement(By.Name("service")));
             IWebElement commentsFeild = wait.Until(driver => driver.FindElement(By.Name("comments")));
             IWebElement attachmentsField = wait.Until(driver => driver.FindElement(By.Name("attachments")));
-            string submitBtn = "//*[@id=\"root\"]/div/div/div/div/div/div[2]/div[2]/form/div[1]/button[1]";
+            string submitBtn = "/html/body/div[1]/body/div/div/div/div[2]/div[2]/form/div[1]/button[1]";
 
             fNameFeild.SendKeys("Tristan");
             lNameFeild.SendKeys("Lafleur");
@@ -434,7 +438,7 @@ namespace SereneFlourish_SeleniumTests
             IWebElement serviceFeild = wait.Until(driver => driver.FindElement(By.Name("service")));
             IWebElement commentsFeild = wait.Until(driver => driver.FindElement(By.Name("comments")));
             IWebElement attachmentsField = wait.Until(driver => driver.FindElement(By.Name("attachments")));
-            string submitBtn = "//*[@id=\"root\"]/div/div/div/div/div/div[2]/div[2]/form/div[1]/button[1]";
+            string submitBtn = "/html/body/div[1]/body/div/div/div/div[2]/div[2]/form/div[1]/button[1]";
 
             fNameFeild.SendKeys("Tristan");
             lNameFeild.SendKeys("Lafleur");
@@ -463,6 +467,17 @@ namespace SereneFlourish_SeleniumTests
             Assert.True(status);
 
             driver.Quit();
+        }
+
+        private void ZoomOut()
+        {
+            ZoomValue -= ZoomIncrement;
+            Zoom(ZoomValue);
+        }
+        private void Zoom(int level)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript(string.Format("document.body.style.zoom='{0}%'", level));
         }
 
         public bool Click(EdgeDriver driver, By by)

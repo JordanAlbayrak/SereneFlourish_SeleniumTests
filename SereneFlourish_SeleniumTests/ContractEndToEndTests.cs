@@ -248,11 +248,11 @@ namespace SereneFlourish_SeleniumTests
             Click(By.Name("EarningsBtn"));
 
             IWebElement yaerInput = wait.Until(driver => driver.FindElement(By.Name("YearInput")));
-            IWebElement chargedHeader = wait.Until(driver => driver.FindElement(By.Name("ChargedHeader")));
-            IWebElement totalHeader = wait.Until(driver => driver.FindElement(By.Name("TotalHeader")));
+            IWebElement oldChargedHeader = wait.Until(driver => driver.FindElement(By.Name("ChargedHeader")));
+            IWebElement oldTotalHeader = wait.Until(driver => driver.FindElement(By.Name("TotalHeader")));
 
-            string oldChargedText = chargedHeader.Text;
-            string oldTotalText = totalHeader.Text;
+            string oldChargedText = oldChargedHeader.Text;
+            string oldTotalText = oldTotalHeader.Text;
 
             Click(By.Name("MonthSelect"));
             Click(By.Name("JunOption"));
@@ -261,6 +261,9 @@ namespace SereneFlourish_SeleniumTests
 
             Click(By.Name("SubmitBtn"));
             Click(By.Name("SubmitBtn"));
+
+            IWebElement chargedHeader = wait.Until(driver => driver.FindElement(By.Name("ChargedHeader")));
+            IWebElement totalHeader = wait.Until(driver => driver.FindElement(By.Name("TotalHeader")));
 
             Assert.NotEqual(oldChargedText, chargedHeader.Text);
             Assert.NotEqual(oldTotalText, totalHeader.Text);
@@ -298,6 +301,9 @@ namespace SereneFlourish_SeleniumTests
             Click(By.Name("SubmitBtn"));
             Click(By.Name("SubmitBtn"));
 
+            chargedHeader = wait.Until(driver => driver.FindElement(By.Name("ChargedHeader")));
+            totalHeader = wait.Until(driver => driver.FindElement(By.Name("TotalHeader")));
+
             Assert.Equal(oldChargedText, chargedHeader.Text);
             Assert.Equal(oldTotalText, totalHeader.Text);
 
@@ -306,6 +312,9 @@ namespace SereneFlourish_SeleniumTests
 
             Click(By.Name("SubmitBtn"));
             Click(By.Name("SubmitBtn"));
+
+            chargedHeader = wait.Until(driver => driver.FindElement(By.Name("ChargedHeader")));
+            totalHeader = wait.Until(driver => driver.FindElement(By.Name("TotalHeader")));
 
             Assert.Equal(oldChargedText, chargedHeader.Text);
             Assert.Equal(oldTotalText, totalHeader.Text);

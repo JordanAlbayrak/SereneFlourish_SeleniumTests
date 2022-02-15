@@ -32,13 +32,13 @@ namespace SereneFlourish_SeleniumTests
             Login();
             _driver.Navigate().GoToUrl(_baseUrl + "/admin/dashboard/portfolio");
             //click on image link with href /admin/portfolio/image/1
-            _driver.FindElement(By.XPath("/html/body/div/div/div/div/div/div/div/div/div/div[1]/a[1]")).Click();
+            _driver.FindElement(By.XPath("/html/body/div/body/div/div/div/div/div/div/div[1]/a[1]/img")).Click();
             _driver.FindElement(By.Id("imageTitle")).SendKeys("Test Image");
             //click on upload button class btn and btn-primary
             IWebElement chooseFile = _driver.FindElement(By.XPath("//*[@id=\"image\"]"));
             chooseFile.SendKeys(_projectRoot + @"Images\Calligraphy.jpg");
             //click the upload button
-            _driver.FindElement(By.XPath("/html/body/div/div/div/div/div[1]/div/p/form/button")).Click();
+            _driver.FindElement(By.XPath("/html/body/div/body/div/div[1]/div/p/form/button")).Click();
             _driver.Quit();
         }
 
@@ -49,13 +49,13 @@ namespace SereneFlourish_SeleniumTests
             Login();
             _driver.Navigate().GoToUrl(_baseUrl + "/admin/dashboard/portfolio");
             //click on image link with href /admin/portfolio/image/2
-            _driver.FindElement(By.XPath("/html/body/div/div/div/div/div/div/div/div/div/div[1]/a[2]/img")).Click();
+            _driver.FindElement(By.XPath("/html/body/div/body/div/div/div/div/div/div/div[1]/a[2]/img")).Click();
             _driver.FindElement(By.Id("imageTitle")).SendKeys("Test Image");
             //click on upload button class btn and btn-primary
             IWebElement chooseFile = _driver.FindElement(By.XPath("//*[@id=\"image\"]"));
             chooseFile.SendKeys(_projectRoot + @"Images\Calligraphy.jpg");
             //click the upload button
-            _driver.FindElement(By.XPath("/html/body/div/div/div/div/div[1]/div/p/form/button")).Click();
+            _driver.FindElement(By.XPath("/html/body/div/body/div/div[1]/div/p/form/button")).Click();
             _driver.Quit();
         }
 
@@ -66,13 +66,13 @@ namespace SereneFlourish_SeleniumTests
             Login();
             _driver.Navigate().GoToUrl(_baseUrl + "/admin/dashboard/portfolio");
             //click on image link with href /admin/portfolio/image/3
-            _driver.FindElement(By.XPath("/html/body/div/div/div/div/div/div/div/div/div/div[2]/a[1]")).Click();
+            _driver.FindElement(By.XPath("/html/body/div/body/div/div/div/div/div/div/div[2]/a[1]/img")).Click();
             _driver.FindElement(By.Id("imageTitle")).SendKeys("Test Image");
             //click on upload button class btn and btn-primary
             IWebElement chooseFile = _driver.FindElement(By.XPath("//*[@id=\"image\"]"));
             chooseFile.SendKeys(_projectRoot + @"Images\Calligraphy.jpg");
             //click the upload button
-            _driver.FindElement(By.XPath("/html/body/div/div/div/div/div[1]/div/p/form/button")).Click();
+            _driver.FindElement(By.XPath("/html/body/div/body/div/div[1]/div/p/form/button")).Click();
             _driver.Quit();
         }
 
@@ -83,13 +83,13 @@ namespace SereneFlourish_SeleniumTests
             Login();
             _driver.Navigate().GoToUrl(_baseUrl + "/admin/dashboard/portfolio");
             //click on image link with href /admin/portfolio/image/4
-            _driver.FindElement(By.XPath("/html/body/div/div/div/div/div/div/div/div/div/div[2]/a[2]")).Click();
+            _driver.FindElement(By.XPath("/html/body/div/body/div/div/div/div/div/div/div[2]/a[2]/img")).Click();
             _driver.FindElement(By.Id("imageTitle")).SendKeys("Test Image");
             //click on upload button class btn and btn-primary
             IWebElement chooseFile = _driver.FindElement(By.XPath("//*[@id=\"image\"]"));
             chooseFile.SendKeys(_projectRoot + @"Images\Calligraphy.jpg");
             //click the upload button
-            _driver.FindElement(By.XPath("/html/body/div/div/div/div/div[1]/div/p/form/button")).Click();
+            _driver.FindElement(By.XPath("/html/body/div/body/div/div[1]/div/p/form/button")).Click();
             _driver.Quit();
         }
 
@@ -99,13 +99,13 @@ namespace SereneFlourish_SeleniumTests
             Login();
             _driver.Navigate().GoToUrl(_baseUrl + "/admin/dashboard/portfolio");
             //click on image link with href /admin/portfolio/image/5
-            _driver.FindElement(By.XPath("/html/body/div/div/div/div/div/div/div/div/div/div[3]/a[1]/img")).Click();
+            _driver.FindElement(By.XPath("/html/body/div/body/div/div/div/div/div/div/div[3]/a[1]/img")).Click();
             _driver.FindElement(By.Id("imageTitle")).SendKeys("Test Image");
             //click on upload button class btn and btn-primary
             IWebElement chooseFile = _driver.FindElement(By.XPath("//*[@id=\"image\"]"));
             chooseFile.SendKeys(_projectRoot + @"Images\Calligraphy.jpg");
             //click the upload button
-            _driver.FindElement(By.XPath("/html/body/div/div/div/div/div[1]/div/p/form/button")).Click();
+            _driver.FindElement(By.XPath("/html/body/div/body/div/div[1]/div/p/form/button")).Click();
             _driver.Quit();
         }
 
@@ -116,13 +116,13 @@ namespace SereneFlourish_SeleniumTests
             Login();
             _driver.Navigate().GoToUrl(_baseUrl + "/admin/dashboard/portfolio");
             //click on image link with href /admin/portfolio/image/6
-            _driver.FindElement(By.XPath("/html/body/div/div/div/div/div/div/div/div/div/div[3]/a[2]/img")).Click();
+            _driver.FindElement(By.XPath("/html/body/div/body/div/div/div/div/div/div/div[3]/a[2]/img")).Click();
             _driver.FindElement(By.Id("imageTitle")).SendKeys("Test Image");
             //click on upload button class btn and btn-primary
             IWebElement chooseFile = _driver.FindElement(By.XPath("//*[@id=\"image\"]"));
             chooseFile.SendKeys(_projectRoot + @"Images\Calligraphy.jpg");
             //click the upload button
-            _driver.FindElement(By.XPath("/html/body/div/div/div/div/div[1]/div/p/form/button")).Click();
+            _driver.FindElement(By.XPath("/html/body/div/body/div/div[1]/div/p/form/button")).Click();
             _driver.Quit();
         }
         

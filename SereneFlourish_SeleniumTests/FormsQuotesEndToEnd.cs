@@ -64,15 +64,19 @@ namespace SereneFlourish_SeleniumTests
 
             Click(By.Name("btnNext"));
 
-            IWebElement selectorValue = wait.Until(driver => driver.FindElement(By.Name("selectorOption")));
+            IWebElement selectorValue = wait.Until(driver => driver.FindElement(By.Name("pageSelector")));
 
-            Assert.Equal("1", selectorValue.Text);
+            char number = selectorValue.Text.ElementAt<char>(0);
+
+            Assert.Equal("1", number.ToString());
 
             Click(By.Name("btnPrevious"));
 
-            selectorValue = wait.Until(driver => driver.FindElement(By.Name("selectorOption")));
+            selectorValue = wait.Until(driver => driver.FindElement(By.Name("pageSelector")));
 
-            Assert.Equal("1", selectorValue.Text);
+            number = selectorValue.Text.ElementAt<char>(0);
+
+            Assert.Equal("1", number.ToString());
 
             _driver.Quit();
         }
@@ -156,7 +160,7 @@ namespace SereneFlourish_SeleniumTests
 
             Login();
 
-            _driver.Url = "http://localhost:3000/admin/dashboard/quote/1";
+            _driver.Url = "http://localhost:3000/admin/dashboard/quote/5";
 
             var search = _driver.FindElement(By.Name("priceBox"));
             search.Clear();
@@ -204,7 +208,7 @@ namespace SereneFlourish_SeleniumTests
             CreationDateInput.SendKeys("02/04/2022");
 
 
-            if (_driver.FindElement(By.XPath("//*[contains(text(), '2/4/2022')]")).Displayed)
+            if (_driver.FindElement(By.XPath("//*[@id=\"root\"]/body/div/div/div[2]/div/input")).Displayed)
             {
                 _status = true;
             }
