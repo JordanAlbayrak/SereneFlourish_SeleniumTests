@@ -438,7 +438,7 @@ namespace SereneFlourish_SeleniumTests
             IWebElement serviceFeild = wait.Until(driver => driver.FindElement(By.Name("service")));
             IWebElement commentsFeild = wait.Until(driver => driver.FindElement(By.Name("comments")));
             IWebElement attachmentsField = wait.Until(driver => driver.FindElement(By.Name("attachments")));
-            string submitBtn = "/html/body/div[1]/body/div/div/div/div[2]/div[2]/form/div[1]/button[1]";
+            string submitBtn = "/html/body/div[1]/body/div/div[2]/div[2]/form/div/div[4]/div[2]/button";
 
             fNameFeild.SendKeys("Tristan");
             lNameFeild.SendKeys("Lafleur");
