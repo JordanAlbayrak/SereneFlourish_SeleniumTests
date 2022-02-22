@@ -160,7 +160,7 @@ namespace SereneFlourish_SeleniumTests
 
             Login();
 
-            _driver.Url = "http://localhost:3000/admin/dashboard/quote/5";
+            _driver.Url = "http://localhost:3000/admin/dashboard/quote/1";
 
             var search = _driver.FindElement(By.Name("priceBox"));
             search.Clear();

@@ -109,8 +109,8 @@ namespace SereneFlourish_SeleniumTests
             search = driver.FindElement(By.Name("country"));
             search.SendKeys("CockCountry");
 
-            Click(driver, By.XPath("/html/body/div[1]/body/div/div/div/div[2]/div[2]/form/div[1]/div[3]/div[1]/select"));
-            Click(driver, By.XPath("/html/body/div[1]/body/div/div/div/div[2]/div[2]/form/div[1]/div[3]/div[1]/select/option[3]"));
+            Click(driver, By.Name("service"));
+            Click(driver, By.Name("Engraving-select"));
 
             search = driver.FindElement(By.Name("comments"));
             search.SendKeys("Test Comment Calligraphy!");
@@ -376,7 +376,7 @@ namespace SereneFlourish_SeleniumTests
             IWebElement serviceFeild = wait.Until(driver => driver.FindElement(By.Name("service")));
             IWebElement commentsFeild = wait.Until(driver => driver.FindElement(By.Name("comments")));
             IWebElement attachmentsField = wait.Until(driver => driver.FindElement(By.Name("attachments")));
-            string submitBtn = "/html/body/div[1]/body/div/div/div/div[2]/div[2]/form/div[1]/button[1]";
+            string submitBtn = "submit-btn";
 
             fNameFeild.SendKeys("Tristan");
             lNameFeild.SendKeys("Lafleur");
@@ -397,7 +397,7 @@ namespace SereneFlourish_SeleniumTests
 
             Thread.Sleep(2000);
 
-            Click(driver, By.XPath(submitBtn));
+            Click(driver, By.Name(submitBtn));
 
             wait.Until(ExpectedConditions.AlertIsPresent());
 
